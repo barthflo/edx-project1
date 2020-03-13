@@ -1,2 +1,3 @@
-# edx-project1
-EDX programming with Python and Javascript Project 1. Building a Flask application to review books
+# Project 1
+
+Web Programming with Python and JavaScript
