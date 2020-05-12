@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="welcomeContainer" class="jumbotron container-fluid text-center m-0">
+    <div class="col-10 offset-1 col-md-6 offset-md-3 text-capitalize">
+        {% for book in books %}
+    <h1>{{ book.title }}</h1>
+    <h3>{{book.author}}</h3>
+    <h6>{{book.isbn}}</h6>
+
+    {% endfor %}
+</div>
+</div>
+{% endblock body %}

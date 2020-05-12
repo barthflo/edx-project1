@@ -1,0 +1,64 @@
+.user-profile{
+    .modal-header{
+        a{
+            color:white;
+            text-decoration: none;
+            height:150px;
+            &:hover{
+                i{
+                    display:block !important;
+                    @include transition(.5s ease-in);
+                }
+                img{
+                    opacity:.8;
+                }
+            }
+        }
+        i{
+            position:relative;
+            bottom:85px;
+        }
+        p{
+            font-family: $Roboto;
+            font-size: .9em;
+            font-weight:100;
+        }
+    }
+    .edit-title{
+        font-size:.8em;
+        &:hover{
+            color:$color1 !important;
+            text-decoration:none;
+            @include transition(.3s ease-in);
+        }
+    }
+    h5{
+        font-family:$Bad;
+    }
+    .profile-section{
+        border-bottom: 2px dotted $color1;
+        width:100%;
+        margin:0 auto;
+    }
+    .title-profile{
+        font-family: $Montserrat;
+        font-size:.9em;
+    }
+}
+.form-control-file{
+    width:80%;
+    margin:0 auto;
+    font-size:.8em;
+    @media (min-width:576px){
+        width:50%;
+    }
+}
+.text-danger{
+    font-size:.8em;
+}
+
+#deleteAccount{
+    h5{
+        font-family:$Bad;
+    }
+}

@@ -1,0 +1,11 @@
+@mixin transition($property){
+    transition : $property;
+    -webkit-transition: $property;
+    -moz-transition: $property;
+    -o-transition: $property;
+}
+@mixin vertical_align{
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}

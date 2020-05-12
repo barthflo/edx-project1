@@ -1,0 +1,111 @@
+{% extends 'layout.html' %}
+{% set active_page = 'search' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block body %}
+<div class="book pt-2 mb-2 rounded container bg-light position-relative">
+    <div class="container result">
+        <div class="review-card text-center mb-2 row border-bottom">
+            <div class="card-header border-0 col-md-4 pb-2">
+                <div class="img-container my-4">
+                    <img class="card-img-top" src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}.jpg"
+                        alt="Card image cap">
+                </div>
+                <h3 class="mb-3">{{book.title}}</h3>
+                <p class="info text-muted font-italic mb-1 text-capitalize">by {{book.author}}</p>
+                <p class="info text-muted font-italic mb-1 text-capitalize">{{book.year}}</p>
+                <p class="info text-muted font-italic mb-3">Average Rating:
+                    {{book.average_rating[0:3]}}/5</p>
+            </div>
+            <div class="d-flex align-self-center text-center card-body col-md-8 py-0 pt-md-4 px-4">
+                <p id="description" class="text-muted font-italic mb-3">{{description}}</p>
+            </div>
+            {% if author %}
+            <div class="card-footer w-100">
+                <p class="info text-muted font-italic mb-0 pt-1">From the same author:</p>
+                <ul class="m-0 p-0">
+                    {% for auth in author %}
+                    <li class="font-italic text-muted d-inline">
+                        <a href="{{url_for('book', book_title=auth.title, book_id=auth.id)}}"
+                            class="info text-muted font-italic">
+                            {{auth.title}} </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="pt-1 pb-3 col-12 text-center border-bottom">
+                {% if edit %}
+                <h2 class="w-100 d-block py-1 mb-1 text-capitalize">You already left a review for this book</h2>
+                <a href="{{ url_for('user_reviews', username=user.username) }}" class="w-100 text-decoration-none"><small class="d-block pb-3 text-capitalize">View all your
+                        reviews</small></a>
+                {% else %}
+                <h2 class="w-100 d-block py-1 mb-1 text-capitalize">Review This Book :</h2>
+                {% endif %}
+                {% if not user %}
+                <small class="d-block pb-3 text-capitalize">You need to be login first.</small>
+                <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="LoginLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        {% include 'includes/loginform.html' %}
+                    </div>
+                </div>
+                <button type="button" class="text-capitalize btn btn-dark btn-sm mb-2" data-toggle="modal"
+                    data-target="#Login">
+                    Log in Now
+                </button>
+                {% endif %}
+                {% if review %}
+                <form class="modal-body form-group text-center mb-0" action="" method="POST" autocomplete="on"
+                    autocorrect="on">
+                    {{ review.hidden_tag() }}
+                    <div class="form-group">
+                        {{ review.rating.label(class="form-control-label ml-0") }}
+                        {% if review.rating.errors %}
+                        {{ review.rating(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in review.rating.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ review.rating(class="form-control form-control-sm ml-0 text-center")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group" autocapitalize="on">
+                        {{ review.review.label(class="form-control-label ml-0") }}
+                        {% if review.review.errors %}
+                        {{ review.review(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in review.review.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ review.review(class="form-control form-control-sm ml-0 text-center")}}
+                        {% endif %}
+                    </div>
+                    <div class="text-center mt-4">
+                        {{ review.submit(class="btn pt-0") }}
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class="recent pt-4 text-center">
+            <h4> Previous Reviews :</h4>
+            {% if not recents %}
+            <small class="d-block pb-3">No reviews left yet. Be the first!</small>
+            {% else %}
+            {% for recent in recents %}
+            {% include 'includes/userreviews.html' %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}

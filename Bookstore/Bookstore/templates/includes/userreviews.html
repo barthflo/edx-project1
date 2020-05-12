@@ -1,0 +1,28 @@
+<div class="border-bottom review-card text-center mb-2 row ">
+    <div class="card-header col-md-4 pb-4 border-0">
+
+        {% if active_page == 'search' %}
+        <div class="img-container my-4" style="width:115px; height:115px; margin: 0 auto;">
+            <img class="card-img-top rounded-circle" src="/static/image_library/uploads/{{recent.avatar}}"
+                alt="User Avatar">
+        </div>
+        {% elif active_page == 'profile_review' %}
+        <div class="img-container my-4">
+            <img class="card-img-top" src="http://covers.openlibrary.org/b/isbn/{{recent.isbn}}.jpg" alt="Book Cover">
+        </div>
+        {% endif %}
+        <h3 class="mb-2 text-capitalize">{{recent.username}}</h3>
+        <a href="{{url_for('book', book_title=recent.title, book_id=recent[0])}}" class="text-dark"><h3 class="mb-2 text-capitalize">{{recent.title}}</h3></a>
+        <p class="info text-muted font-italic mb-1">Rated {{recent.rating}}/5</p>
+        <p class="info text-muted font-italic mb-1">On {{recent.datetime[0:16]}} <br> at
+            {{recent.datetime[17:23]}}</p>
+    </div>
+    <div class="card-body align-self-center col-md-8 pt-4">
+        <p class="text-muted font-italic mb-3 p-2">{{recent.body_text}}</p>
+        {% if active_page == 'profile_review' %}
+        <button type="button" class="text-capitalize text-center btn btn-dark btn-sm mb-2" data-toggle="modal" data-target="#Edit">
+            Edit
+        </button>
+        {% endif %}
+    </div>
+</div>

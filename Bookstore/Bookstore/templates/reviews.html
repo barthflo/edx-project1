@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% set active_page = 'profile_review' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block body %}
+<div class="book pt-2 mb-2 rounded container bg-light position-relative">
+    <div class="container result">
+        <h2 class="w-100 d-block py-1 mb-1 text-capitalize text-center border-bottom">My reviews :</h2>
+        {% if not recents %}
+        <small class="text-center d-block pb-3">You didn't leave any reviews yet!</small>
+        {% else  %}
+        {% for recent in recents %}
+        {% include 'includes/userreviews.html' %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock body%}

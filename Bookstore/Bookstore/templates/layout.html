@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Books - Read, Rate, Review, Repeat - {% block title %}{% endblock title %}{% if user %}
+        - {{ user.username}} {% endif %}</title>
+    <!-- BROWSER TABS ICONS  -->
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="{{ url_for('static', filename='image_library/favicon_io/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ url_for('static', filename='image_library/favicon_io/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ url_for('static', filename='image_library/favicon_io/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ url_for('static', filename='image_library/favicon_io/site.webmanifest') }}">
+    <!-- BOOTSTRAP STYLESHEETS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="http://getbootstrap.com.vn/examples/equal-height-columns/equal-height-columns.css"/> -->
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/all.min.css')}}">
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/main.css')}}">
+</head>
+
+<body>
+    <!-- LOADER GIF -->
+    <div id="loading" class="position-fixed" style="top:0px">
+        <div class="bg-light loader position-relative text-center">
+            <img src="{{ url_for('static', filename='image_library/gif-book.gif') }}" alt="loader" class="rounded-circle p-3">
+        </div>
+    </div>
+    <!-- BACKGROUND MASK -->
+    <div class="view">
+        <img src="{{ url_for('static', filename='image_library/image_background.jpg') }}" alt="background_image">
+        <div class="mask pattern-5"></div>
+    </div><!-- END MASK BACKGROUND -->
+    <!-- TITLE AND NAVIGATION -->
+    <header class="container p-0 col-11 col-lg-9 fixed-top">
+        <nav class="navbar navbar-expand-md navbar-light bg-light px-1 px-sm-2 py-sm-0">
+            <a class="brand p-0 pt-sm-2 px-md-3 col-6 offset-3 col-md-4 offset-md-0 text-center"
+                href="{{ url_for('home') }}">
+                <h1 class="mb-0">Secret Books</h1>
+                <h6 class="navbar-text p-0 pb-sm-3 m-0"> Read, Rate, Review, Repeat...</h6>
+            </a>
+            <button class="navbar-toggler px-2" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavAltMarkup">
+                <div class="navbar-nav text-center mt-2">
+                    <a class="nav-item nav-link {{ 'active' if active_page == 'home' else '' }}"
+                        href="{{ url_for('home') }} ">Home</a>
+                    {% if active_page == 'search' %}
+                    <a id="search" class="nav-item nav-link {{ 'active' if active_page == 'search' else '' }}"
+                        href="{{url_for('search')}}">Search
+                        Books</a>
+                    {% else %}
+                    {% include 'includes/searchform.html' %}
+
+                    {% endif %}
+                    {% if not user %}
+                    <a class="nav-item nav-link {{ 'active' if active_page == 'login' else '' }}"
+                        href="{{ url_for('login') }}">Login</a>
+                    <a class="nav-item nav-link {{ 'active' if active_page ==  'register' else '' }}"
+                        href="{{ url_for('register') }}">Create an account</a>
+                    {% endif %}
+                    {% if user %}
+                    <!-- <a class="nav-item nav-link {{ 'active' if active_page == 'reviews' else '' }}" href="#">Reviews</a> -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ 'active' if active_page == 'profile' or active_page == 'profile_review' else '' }}"
+                            href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            My Account
+                            <img src="/static/image_library/uploads/{{user.avatar}}" alt="avatar">
+                        </a>
+                        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="nav-item nav-link dropdown-item {{ 'active' if active_page == 'profile' else '' }}"
+                                href="{{ url_for('user_account', username=user.username) }}">My Profile
+                            </a>
+                            <a class="nav-item nav-link dropdown-item {{ 'active' if active_page == 'profile_review' else '' }}"
+                                href="{{ url_for('user_reviews', username=user.username) }}">My reviews</a>
+                            <a id="logout" class="nav-item nav-link dropdown-item" href="{{ url_for('logout') }}">Log
+                                out</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header><!-- END TITLE AND NAVIGATION -->
+    <!--  MAIN BODY STARTS-->
+    <div class='main'>
+        <!-- FLASH MESSAGES  -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} col-sm-4 offset-sm-4 text-center">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <!-- END FLASH MESSAGES-->
+
+
+        {%block body%}{% endblock body %}
+
+    </div> <!-- END MAIN BODY -->
+
+    <!-- SCRIPTS / JQuery / Popper / Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+    <script type="text/javascript">// <![CDATA[
+        function loading() {
+            $("#loading").show();
+        }
+// ]]></script>
+</body>
+
+</html>

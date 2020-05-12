@@ -1,0 +1,391 @@
+@import url("https://fonts.googleapis.com/css?family=Bad+Script|Montserrat|Dancing+Script|Libre+Baskerville|Playfair+Display|Roboto&display=swap");
+ul, li {
+  list-style-type: none; }
+
+/*
+body {
+    background-image: url(/static/image_library/image_background.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size:cover;
+}
+*/
+.view {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh; }
+  .view img {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover; }
+  .view .mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    overflow: hidden; }
+  .view .pattern-5 {
+    background-image: url(/static/image_library/overlays/05.png);
+    opacity: .3; }
+
+.alert {
+  box-shadow: 2px 2px 20px #535353;
+  font-family: "Montserrat", sans-serif;
+  font-size: .9em;
+  border: 5px solid #00000014;
+  top: 10px; }
+
+.main {
+  margin-top: 104px; }
+  @media (min-width: 576px) {
+    .main {
+      margin-top: 124px; } }
+
+img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; }
+
+.loader {
+  top: 40vh;
+  width: 300px;
+  margin: 0 auto;
+  border: 7px solid pink;
+  border-radius: 10px;
+  box-shadow: 2px 2px 20px #535353; }
+
+#loading {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  background: rgba(128, 128, 128, 0.7);
+  z-index: 10000; }
+
+header {
+  background: white;
+  border-radius: 10px;
+  border: 10px solid pink;
+  box-shadow: 2px 2px 20px #535353;
+  margin-top: 10px; }
+  @media (min-width: 768px) {
+    header .brand {
+      text-align: left !important; } }
+  header h1 {
+    font-family: "Dancing Script", cursive; }
+    @media (max-width: 575px) {
+      header h1 {
+        font-size: 1.8em; } }
+  header h6 {
+    font-family: Bad Script; }
+    @media (max-width: 575px) {
+      header h6 {
+        font-size: .8em; } }
+  header a, header a:hover {
+    color: black;
+    text-decoration: none; }
+  header .navbar-nav {
+    border-top: 1px dotted pink;
+    font-family: "Bad Script", cursive; }
+    header .navbar-nav .nav-link:hover {
+      color: pink !important;
+      transition: 0.2s ease-in;
+      -webkit-transition: 0.2s ease-in;
+      -moz-transition: 0.2s ease-in;
+      -o-transition: 0.2s ease-in; }
+  header #search:hover {
+    color: black !important; }
+  header .dropdown-toggle img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    border: 3px solid pink;
+    object-fit: cover; }
+  @media (min-width: 768px) {
+    header .dropdown-toggle .dropdown-menu {
+      text-align: left !important; } }
+  header .dropdown-item {
+    color: rgba(0, 0, 0, 0.5) !important; }
+  header .dropdown-item.active {
+    background-color: transparent;
+    color: black !important; }
+  header #logout {
+    background-color: black;
+    color: white !important; }
+    header #logout:hover {
+      color: pink !important; }
+
+form:hover .search {
+  display: inline-block !important; }
+  form:hover .search .fa-search:hover {
+    color: pink;
+    transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in; }
+
+#welcomeContainer {
+  background: none;
+  position: relative; }
+  #welcomeContainer h2, #welcomeContainer p {
+    font-family: "Bad Script", cursive;
+    color: white; }
+
+#whatsHot {
+  position: relative;
+  background: white;
+  border-top: 1px dotted; }
+  #whatsHot span {
+    font-family: "Bad Script", cursive;
+    font-size: 1em;
+    color: white;
+    text-decoration: wavy overline;
+    width: 50%;
+    margin: 0 auto; }
+
+#carouselTrending {
+  background: rgba(255, 192, 203, 0.753); }
+  #carouselTrending .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%; }
+  #carouselTrending .card {
+    box-shadow: 2px 2px 20px #535353; }
+    #carouselTrending .card a {
+      font-family: "Bad Script", cursive;
+      font-size: .8em; }
+  #carouselTrending h6 {
+    font-family: "Bad Script", cursive; }
+  #carouselTrending p {
+    font-size: .7em; }
+  #carouselTrending .img-container {
+    padding-bottom: 2px;
+    box-shadow: 0px 10px 10px pink;
+    background-image: url(https://pbs.twimg.com/media/EPnyF7OXkAIX603.jpg);
+    background-repeat: no-repeat;
+    background-size: 70px 100px;
+    height: 100px;
+    width: 70px;
+    margin: 10px auto 5px; }
+    #carouselTrending .img-container .card-img-top {
+      object-fit: fill;
+      height: 100%;
+      width: 100%; }
+
+#recentReviews {
+  background: #5e656936; }
+  #recentReviews h3, #recentReviews h5 {
+    font-family: "Dancing Script", cursive; }
+  #recentReviews h6 {
+    font-family: "Roboto", sans-serif;
+    font-size: .8em; }
+  #recentReviews p {
+    font-family: "Bad Script", cursive; }
+  #recentReviews a {
+    font-family: "Bad Script", cursive; }
+  #recentReviews span {
+    font-family: "Bad Script", cursive;
+    font-size: 1.2em;
+    color: white;
+    text-decoration: wavy overline white;
+    width: 50%;
+    margin: 0 auto; }
+  #recentReviews .review-card {
+    background: rgba(255, 255, 255, 0.88);
+    border: 10px solid pink;
+    box-shadow: 2px 2px 20px #535353; }
+  #recentReviews .card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 7px solid pink; }
+  #recentReviews .card-header h5 {
+    font-family: "Bad Script", cursive; }
+
+.user-profile .modal-header a {
+  color: white;
+  text-decoration: none;
+  height: 150px; }
+  .user-profile .modal-header a:hover i {
+    display: block !important;
+    transition: 0.5s ease-in;
+    -webkit-transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in; }
+  .user-profile .modal-header a:hover img {
+    opacity: .8; }
+.user-profile .modal-header i {
+  position: relative;
+  bottom: 85px; }
+.user-profile .modal-header p {
+  font-family: "Roboto", sans-serif;
+  font-size: .9em;
+  font-weight: 100; }
+.user-profile .edit-title {
+  font-size: .8em; }
+  .user-profile .edit-title:hover {
+    color: pink !important;
+    text-decoration: none;
+    transition: 0.3s ease-in;
+    -webkit-transition: 0.3s ease-in;
+    -moz-transition: 0.3s ease-in;
+    -o-transition: 0.3s ease-in; }
+.user-profile h5 {
+  font-family: "Bad Script", cursive; }
+.user-profile .profile-section {
+  border-bottom: 2px dotted pink;
+  width: 100%;
+  margin: 0 auto; }
+.user-profile .title-profile {
+  font-family: "Montserrat", sans-serif;
+  font-size: .9em; }
+
+.form-control-file {
+  width: 80%;
+  margin: 0 auto;
+  font-size: .8em; }
+  @media (min-width: 576px) {
+    .form-control-file {
+      width: 50%; } }
+
+.text-danger {
+  font-size: .8em; }
+
+#deleteAccount h5 {
+  font-family: "Bad Script", cursive; }
+
+@media (max-width: 575px) {
+  .modal-dialog {
+    margin-left: 0; } }
+.modal-content {
+  border: 10px solid pink;
+  box-shadow: 2px 2px 20px #535353;
+  top: 20px;
+  margin: 0 auto 5px; }
+  @media (max-width: 575px) {
+    .modal-content {
+      width: 90%; } }
+  .modal-content .modal-header {
+    padding: 2.5rem 1rem 2rem; }
+    .modal-content .modal-header .avatar {
+      width: 150px;
+      height: 150px;
+      border: 10px solid pink;
+      margin: 0 auto;
+      object-fit: cover; }
+  .modal-content .modal-body input, .modal-content .modal-body .invalid-feedback, .modal-content .modal-body #submit {
+    font-family: "Montserrat", sans-serif; }
+  .modal-content .modal-body .form-control-label {
+    font-family: "Bad Script", cursive; }
+  .modal-content .modal-body .form-check {
+    font-size: .8em; }
+  .modal-content .modal-body #submit:hover, .modal-content .modal-body .fas {
+    color: pink;
+    transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in; }
+  .modal-content small {
+    font-family: "Montserrat", sans-serif; }
+    .modal-content small a {
+      color: pink; }
+    .modal-content small a:hover {
+      color: #007bff;
+      transition: 0.2s ease-in;
+      -webkit-transition: 0.2s ease-in;
+      -moz-transition: 0.2s ease-in;
+      -o-transition: 0.2s ease-in; }
+
+#searchResults {
+  top: 20px; }
+  #searchResults .jumbotron {
+    box-shadow: 2px 2px 20px #535353;
+    background: #dcdcdc3b;
+    border: 5px solid pink; }
+    #searchResults .jumbotron label {
+      font-family: "Bad Script", cursive;
+      font-size: 1.2em;
+      color: white; }
+    #searchResults .jumbotron input {
+      width: 50%;
+      height: 35px;
+      border: 2px solid black;
+      font-family: "Roboto", sans-serif;
+      background: white; }
+    #searchResults .jumbotron button {
+      background: transparent; }
+  #searchResults h1 {
+    font-family: "Dancing Script", cursive; }
+  #searchResults .results {
+    width: 95%;
+    margin: 20px auto;
+    border: 7px solid pink;
+    box-shadow: 2px 2px 20px #535353; }
+  #searchResults .result .img-container {
+    width: 100px;
+    height: 150px;
+    margin: 0 auto;
+    box-shadow: 0px 10px 10px pink;
+    background-image: url(https://pbs.twimg.com/media/EPnyF7OXkAIX603.jpg);
+    background-repeat: no-repeat;
+    background-size: 100px 150px; }
+    #searchResults .result .img-container img {
+      width: 100%;
+      height: 100%; }
+  #searchResults .result h3 {
+    font-family: "Dancing Script", cursive; }
+  #searchResults .result p {
+    font-family: "Roboto", sans-serif;
+    font-size: .9em; }
+  #searchResults .result .btn {
+    font-family: "Bad Script", cursive;
+    font-size: .9em; }
+
+.book {
+  top: 20px;
+  border: 5px solid pink;
+  box-shadow: 2px 2px 20px #535353; }
+  .book .img-container {
+    width: 100px;
+    height: 150px;
+    margin: 0 auto;
+    box-shadow: 0px 10px 10px pink;
+    background-image: url(https://pbs.twimg.com/media/EPnyF7OXkAIX603.jpg);
+    background-repeat: no-repeat;
+    background-size: 100px 150px; }
+    .book .img-container img {
+      width: 100%;
+      height: 100%; }
+  .book h2, .book h3 {
+    font-family: "Dancing Script", cursive; }
+  .book p {
+    font-family: "Roboto", sans-serif; }
+  .book .info {
+    font-size: 0.9em; }
+  .book .btn {
+    font-family: "Bad Script", cursive;
+    font-size: 1em; }
+  .book small {
+    font-family: "Montserrat", sans-serif;
+    color: pink; }
+  .book .card-footer p {
+    font-family: "Montserrat", sans-serif; }
+  .book a:hover {
+    color: none; }
+  .book .recent h4 {
+    font-family: "Montserrat", sans-serif; }
+  .book .recent .img-container {
+    box-shadow: none;
+    border: 7px solid pink;
+    border-radius: 100px;
+    background-image: None; }
+    .book .recent .img-container img {
+      object-fit: cover;
+      width: 100%; }
+
+/*# sourceMappingURL=main.css.map */

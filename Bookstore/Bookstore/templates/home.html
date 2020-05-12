@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+{% set active_page = 'home' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block body %}
+<!-- WELCOME -->
+<div id="welcomeContainer" class="jumbotron container-fluid text-center m-0">
+    <div class="col-10 offset-1 col-md-6 offset-md-3 text-capitalize">
+        <h2>Welcome to secret books!</h2>
+        <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias explicabo est doloremque debitis
+            perspiciatis
+            officiis voluptatum facere odit? Praesentium culpa magni totam aut quas aliquam cumque voluptate earum natus
+            mollitia!</p>
+        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, earum dolore sequi dignissimos aliquid, ut
+            magni nesciunt pariatur distinctio totam cum facere similique voluptatibus impedit quis nostrum possimus
+            natus accusamus.</p>
+    </div>
+</div>
+<!-- END WELCOME-->
+<!-- WHAT'S HOT -->
+<div id="whatsHot" class="pt-3 pb-4 container-fluid text-center">
+    <span class="badge badge-dark text-center pt-3 px-3 mt-2 text-capitalize">What's hot now?</span>
+    <!-- Carousel -->
+    <div id="carouselTrending"
+        class="col-10 offset-1 col-sm-12 offset-sm-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2 carousel slide py-4 mt-3 mb-1 rounded"
+        data-ride="carousel">
+        <ol class="carousel-indicators my-0">
+            <li data-target="#carouselTrending" data-slide-to="0" class="active bg-dark mt-2"></li>
+            <li data-target="#carouselTrending" data-slide-to="1" class="bg-dark mt-2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="container-fluid carousel-item active">
+                <div class="row p-0">
+                    {% for book in books[0:3] %}
+                    <div class="col-sm-4 my-2 px-3">
+                        <div class="card h-100 p-2">
+                            <div class="img-container">
+                                <img class="card-img-top" src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}.jpg"
+                                    alt="Card image cap">
+                            </div>
+                            <div class="card-body pb-2 px-0">
+                                <h6 class="card-title mb-1">{{book.title}}</h6>
+                                <p class="card-text text-muted font-italic mb-1">{{book.author}}</p>
+                                <p class="card-text text-muted font-italic mb-1">Average Rating:
+                                    {{book.average_rating[0:3]}}/5</p>
+                                <p class="card-text text-muted font-italic mb-3">{{book.year}}</p>
+                                <a href="{{ url_for('book', book_id=book.id, book_title=book.title, book_isbn=book.isbn, year=book.year)}}" class="btn btn-dark btn-small p-1">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div> <!-- END CAROUSEL ITEM-->
+            <div class="container-fluid carousel-item">
+                <div class="row p-0">
+                    {% for book in books[3:6] %}
+                    <div class="col-sm-4 my-2 px-3">
+                        <div class="card h-100 p-2">
+                            <div class="img-container">
+                                <img class="card-img-top" src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}.jpg"
+                                    alt="Card image cap">
+                            </div>
+                            <div class="card-body pb-2 px-0">
+                                <h6 class="card-title mb-1">{{book.title}}</h6>
+                                <p class="card-text text-muted font-italic mb-1">{{book.author}}</p>
+                                <p class="card-text text-muted font-italic mb-1">Average Rating:
+                                    {{book.average_rating[0:3]}}/5</p>
+                                <p class="card-text text-muted font-italic mb-3">{{book.year}}</p>
+                                <a href="{{ url_for('book', book_id=book.id, book_title=book.title, book_isbn=book.isbn, year=book.year)}}" class="btn btn-dark btn-small p-1">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div> <!-- END CAROUSEL ITEM-->
+        </div><!-- END CAROUSEL INNER-->
+    </div><!-- END CAROUSEL -->
+</div><!-- END WHAT'S HOT-->
+<!-- MOST RECENT REVIEWS -->
+<div id="recentReviews" class="container-fluid position-relative text-center pb-1">
+    <span class="badge text-center pt-3 px-3 mt-3 text-capitalize">Latest Reviews From GoodReads.com</span>
+    <div class="container col-md-10 offset-md-1 col-lg-6 offset-lg-3 mt-2">
+        {% for review in reviews[0:3] %}
+        <div class="review-card text-center mb-2 row rounded">
+            <div class="card-header col-md-4 pb-4">
+                <div class="img-container my-4" style="width:115px; height:115px; margin: 0 auto;">
+                    <img class="card-img-top rounded-circle" src="{{ review.user.image_url }}" alt="Card image cap">
+                </div>
+                <h5 class="mb-2 text-capitalize">{{review.user.name}}</h5>
+                <h6 class="text-muted font-italic mb-1">Rated {{review.rating}}/5</h6>
+                <h6 class="text-muted font-italic mb-1">On {{review.date_added[0:10]}} at {{review.date_added[11:16]}}</h6>
+            </div>
+            <div class="card-body col-md-8 pt-4">
+                <h3 class="mb-2 text-capitalize">{{review.book.title_without_series}}</h3>
+                <h6 class="text-muted font-italic mb-1 text-capitalize">by {{review.book.authors.author.name}}</h6>
+                <h6 class="text-muted font-italic mb-2">Published in {{review.book.publication_year}}</h6>
+                <p class="text-muted mb-3 p-2">{{review.body}}</p>
+                <a href="{{review.url}}" class="btn btn-dark btn-small py-1 px-2 text-capitalize">Read more on GoodReads</a>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div><!-- END MOST RECENT -->
+
+{% endblock body %}

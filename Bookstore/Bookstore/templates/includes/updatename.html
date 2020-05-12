@@ -1,0 +1,19 @@
+<form class="modal-body form-group text-center mb-0" action="" method="POST" autocomplete="off" autocorrect="off">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.username.label(class="form-control-label ml-0 text-capitalize") }}
+        {% if form.username.errors %}
+        {{ form.username(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+        <div class="invalid-feedback">
+            {% for error in form.username.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.username(class="form-control form-control-sm ml-0 text-center")}}
+        {% endif %}
+    </div>
+    <div class="text-center mt-4">
+        {{ form.submit(class="btn pt-0 text-capitalize") }}<i class="fas fa-sign-in-alt"></i>
+    </div>
+</form>

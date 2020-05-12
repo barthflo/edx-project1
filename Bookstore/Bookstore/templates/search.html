@@ -1,0 +1,69 @@
+{% extends 'layout.html'%}
+{% set active_page = 'search' %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block body %}
+<div id="searchResults" class=" container-fluid position-relative p-0 no-gutters">
+   
+    <form class="col-10 offset-1 col-md-8 offset-md-2 jumbotron text-center" action="{{url_for('search')}}"
+        method="post">
+        {{ searchform.hidden_tag()}}
+        {% if searchform.search.errors %}
+        {{ searchform.search(class="text-center is-invalid")}}
+        <div class="font-italic text-warning invalid-feedback">
+            {% for error in searchform.search.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ searchform.search.label(class="text-center text-uppercase w-100") }}
+        {{ searchform.search(class="text-center rounded font-italic w-75 px-2", placeholder="Enter a title, author, publication year or isbn")}}
+        {% endif %}
+        <button type="submit" onclick="loading();" class="border-0 search"><i class="fas fa-search"></i></button>
+    </form>
+    {% if books %}
+    <div class="results pt-2 rounded container-fluid bg-light">
+        <h1 class="pt-2 pb-3 text-center text-capitalize border-bottom">Your search results :</h1>
+        <div class="offset-8 offset-sm-9 offset-md-10 btn-group">
+            <button type="button" class="btn btn-sm">Order by:</button>
+            <button type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{{url_for('order_by_title')}}">Title</a>
+              <a class="dropdown-item" href="{{url_for('order_by_author')}}">Author</a>
+              <a class="dropdown-item" href="{{url_for('order_by_year')}}">Year</a>
+              <a class="dropdown-item" href="{{url_for('order_by_rate_low')}}">Rating (low to high)</a>
+              <a class="dropdown-item" href="{{url_for('order_by_rate_high')}}">Rating (high to low)</a>
+            </div>
+          </div>
+        {% endif %}
+        {% if message %}
+        <div class="results pt-2 rounded container-fluid bg-light">
+        <h6 class="text-center text-muted font-italic">{{message}}</h6>
+        </div>
+        {% endif %}
+        {% for book in books %}
+        <div class="container result">
+            <div class="review-card text-center mb-2 row border-bottom">
+                <div class="card-header border-0 col-md-4 pb-4">
+                    <div class="img-container my-4">
+                        <img class="card-img-top" src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}.jpg"
+                            alt="Card image cap">
+                    </div>
+                </div>
+                <div class="card-body col-md-8 pt-4">
+                    <h3 class="mb-3">{{book.title}}</h3>
+                    <p class="text-muted font-italic mb-1 text-capitalize">by {{book.author}}</p>
+                    <p class="text-muted font-italic mb-1 text-capitalize">{{book.year}}</p>
+                    <p class="text-muted font-italic mb-3">Average Rating:
+                        {{book.average_rating[0:3]}}/5</p>
+                    <a href="{{ url_for('book', book_title=book.title, book_id=book.id) }}" class="btn btn-dark btn-small py-1 px-2">See More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

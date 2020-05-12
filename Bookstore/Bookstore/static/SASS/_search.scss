@@ -1,0 +1,61 @@
+#searchResults{
+    top:20px;
+        .jumbotron{
+            box-shadow: $shadow;
+            background:#dcdcdc3b;
+            border: 5px solid pink;
+            label{
+                font-family:$Bad;
+                font-size:1.2em;
+                color:white;
+            }
+            input{
+                width:50%;
+                height:35px;
+                border: 2px solid black;
+                font-family:$Roboto;
+                background: white;
+            }
+            button{
+                background: transparent;
+            }
+        }
+        h1{
+            font-family: $Dancing;
+        }
+        .results{
+            width: 95%;
+            margin: 20px auto;
+            border: 7px solid pink;
+            box-shadow: $shadow;
+        }
+        .result{
+            .img-container{
+                width:100px;
+                height:150px;
+                margin: 0 auto;
+                box-shadow:0px 10px 10px pink;
+                background-image:url(https://pbs.twimg.com/media/EPnyF7OXkAIX603.jpg);
+                background-repeat:no-repeat;
+                background-size: 100px 150px;
+                img{
+                    width:100%;
+                    height:100%;
+                }
+            }
+            h3{
+                font-family:$Dancing;
+            }
+            p{
+                font-family:$Roboto;
+                font-size:.9em;
+            }
+            .btn{
+                font-family:$Bad;
+                font-size:.9em;
+            }
+            
+        }
+    }
+
+

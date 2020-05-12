@@ -1,0 +1,15 @@
+<form class="modal-body form-group text-center mb-0" action="" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.picture.label(class="form-control-label ml-0 text-capitalize") }}
+        {{ form.picture(class="form-control-file mt-3") }}
+        {% if form.picture.errors %}
+            {% for error in form.picture.errors %}
+                <span class="text-danger font-italic">{{ error }}</span><br>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="text-center mt-3">
+        {{ form.submit(class="btn pt-0 text-capitalize") }}<i class="fas fa-sign-in-alt"></i>
+    </div>
+</form>

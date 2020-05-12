@@ -1,0 +1,88 @@
+<!--  FORGOT PASSWORD -->
+{% if active_page == 'reset_password' %}
+
+<form class="modal-body form-group text-center mb-0" action="" method="POST" autocomplete="off" autocorrect="off">
+    {{ form.hidden_tag() }}
+    <div class="form-group ">
+        {{ form.new_password.label(class="form-control-label ml-0") }}
+        {% if form.new_password.errors %}
+        {{ form.new_password(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+        <div class="invalid-feedback">
+            {% for error in form.new_password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.new_password(class="form-control form-control-sm ml-0 text-center")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.new_password_confirm.label(class="form-control-label ml-0") }}
+        {% if form.new_password_confirm.errors %}
+        {{ form.new_password_confirm(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+        <div class="invalid-feedback">
+            {% for error in form.new_password_confirm.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.new_password_confirm(class="form-control form-control-sm ml-0 text-center")}}
+        {% endif %}
+    </div>
+    <div class="text-center mt-4">
+        <input class="btn pt-0 text-capitalize" type="submit" id="submit" name="submit" value="Reset password"><i class="fas fa-sign-in-alt"></i>
+    </div>
+</form>
+
+{% endif %}
+
+<!-- PASSWORD UPDATE -->
+{% if active_page == 'profile' %}
+
+<form class="modal-body form-group text-center mb-0" action="" method="POST" autocomplete="off" autocorrect="off">
+    {{ form.hidden_tag() }}
+    <div class="form-group ">
+        {{ form.current_password.label(class="form-control-label ml-0") }}
+        {% if form.current_password.errors %}
+        {{ form.current_password(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+        <div class="invalid-feedback">
+            {% for error in form.current_password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.current_password(class="form-control form-control-sm ml-0 text-center")}}
+        {% endif %}
+    </div>
+    <div class="form-group ">
+        {{ form.new_password.label(class="form-control-label ml-0") }}
+        {% if form.new_password.errors %}
+        {{ form.new_password(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+        <div class="invalid-feedback">
+            {% for error in form.new_password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.new_password(class="form-control form-control-sm ml-0 text-center")}}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.new_password_confirm.label(class="form-control-label ml-0") }}
+        {% if form.new_password_confirm.errors %}
+        {{ form.new_password_confirm(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+        <div class="invalid-feedback">
+            {% for error in form.new_password_confirm.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.new_password_confirm(class="form-control form-control-sm ml-0 text-center")}}
+        {% endif %}
+    </div>
+    <div class="text-center mt-4">
+        {{ form.submit(class="btn pt-0 text-capitalize") }}<i class="fas fa-sign-in-alt"></i>
+    </div>
+</form>
+
+{% endif %}
