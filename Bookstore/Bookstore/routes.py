@@ -27,7 +27,7 @@ def search():
         try :
             # Search database for results matching the search
             isbns = db.execute(
-            f"SELECT isbn FROM Books WHERE title LIKE '%{searchform.search.data}%' OR author LIKE '%{searchform.search.data}%' OR isbn LIKE '%{searchform.search.data}%' OR year='{searchform.search.data}' ORDER BY title ASC").fetchall()
+            f"SELECT isbn FROM Books WHERE title ILIKE '%{searchform.search.data}%' OR author ILIKE '%{searchform.search.data}%' OR isbn LIKE '%{searchform.search.data}%' OR year='{searchform.search.data}' ORDER BY title ASC").fetchall()
         except:
             if 'user' in session:
                 return render_template('search.html', title="Search", searchform=searchform, message=(f"No results. Please try again"), user=session['user'])
@@ -93,7 +93,7 @@ def order_by_rate_high():
     return render_template('search.html', title="Search", searchform=searchform, books=high_to_low)
 
 # ---------------------- Book Details --------------------
-@app.route("/book/<string:book_title>/book_id:<int:book_id>", methods=['POST', 'GET'])
+@app.route("/book/<string:book_title>/id:<int:book_id>", methods=['POST', 'GET'])
 def book(book_title, book_id):
     search = SearchForm()
     review = SubmitReviewForm()
@@ -111,10 +111,12 @@ def book(book_title, book_id):
             f"SELECT book_id FROM Reviews WHERE user_id={session['user'].id} AND book_id={book_id}").fetchall()
         if len(edit) > 0:
             return render_template('book.html', title=book_title, searchform=search, book=book, author=author, description=description, edit=edit, recents=recents, user=session['user'])
-        if request.method == "POST" and review.validate:
+        if request.method == "POST" and review.validate():
             db.execute(
                 "INSERT INTO Reviews (body_text, rating, datetime, book_id, user_id) VALUES (:body_text, :rating, :datetime, :book_id, :user_id)", 
                 {"body_text" : review.review.data, "rating": review.rating.data, "datetime": now , "book_id":book_id, "user_id": session['user'].id})
+            # Add review count to book database
+            db.execute ("UPDATE Books SET review_count = review_count + 1 WHERE id=:id", {"id": book_id})
             db.commit()
             flash (f'Your review has been post', 'success')
             return redirect(url_for('book', book_title=book.title, book_id=book.id))
@@ -161,7 +163,7 @@ def logout():
         abort(404)
 
 # --------------------- Delete account --------------------------
-@app.route("/delete", methods=['POST'])
+@app.route("/delete", methods=['GET','POST'])
 def delete_account():
     if 'user' in session:
         user = session['user']
@@ -198,8 +200,8 @@ def user_reviews(username):
         flash("You need to login first", "danger")
         return redirect(url_for('login'))
     search=SearchForm()
-    recents=db.execute(f"SELECT * FROM Books JOIN Reviews ON Reviews.book_id=books.id WHERE user_id={session['user'][0]}").fetchall()
-    return render_template('reviews.html', title="Your Reviews", user=session['user'], searchform=search, recents=recents)
+    recents=db.execute(f"SELECT * FROM Books JOIN Reviews ON Reviews.book_id=books.id WHERE user_id={session['user'][0]}").fetchall()  
+    return render_template('reviews.html', title="Your Reviews", user=session['user'], searchform=search, recents=recents )
 
 # ----------------- Password Reset Request ------------
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
@@ -228,3 +230,27 @@ def reset_password(token):
                 f"Welcome back {session['user'][1]}! Your password has been reset and you are now connected!", "success")
             return redirect(url_for('user_account', username=user.username))
     return render_template('reset_password.html', title="Reset Password", user=user, form=form, searchform=search)
+
+# ---------------- API Route --------------------------
+@app.route("/api/<string:isbn>")
+def book_api(isbn):
+    books=db.execute("SELECT * FROM Books WHERE isbn=:isbn", {'isbn':isbn}).fetchall()
+    if len(books) != 1 :
+        return jsonify({"error": "Invalid book isbn"}), 422
+    print(books)
+    for book in books:
+        return jsonify({
+            "isbn" : isbn,
+            "title": book['title'],
+            "author":book['author'],
+            "year": book['year'],
+            "average_score": book.average_rating,
+            "review_count": book.review_count
+        })
+
+@app.route("/api")
+def api():
+    if 'user' not in session :
+        abort(403)
+    search=SearchForm()
+    return render_template('api.html', user=session['user'], searchform=search)

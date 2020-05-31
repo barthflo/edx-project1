@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import Form, StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, validators
+from wtforms import Form, StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, validators
 from wtforms.validators import DataRequired, Email, Length, EqualTo, NumberRange, ValidationError
 
 
@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo, NumberRange
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=60)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=20)])
     password_confirm = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='Passwords do not match')])
     submit = SubmitField('Create an account')
 
@@ -41,6 +41,6 @@ class SearchForm(FlaskForm):
 
 # -------- Submit Review Form ---------------
 class SubmitReviewForm(FlaskForm):
-    rating = IntegerField('Score 1 to 5')
-    review = TextAreaField('Write a review', validators=[DataRequired(), Length(min=50)])
+    rating = SelectField('Score :', choices=[('1','1'), ('2','2'), ('3','3'), ('4','4'), ('5','5')])
+    review = TextAreaField('Write a review', validators=[DataRequired()])
     submit = SubmitField('Post Now')

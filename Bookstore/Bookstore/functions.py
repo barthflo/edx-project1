@@ -59,6 +59,9 @@ def log_user(login_form):
         return redirect(url_for('login'))
     #check if password match db
     hashed_pw=db.execute("SELECT password FROM Users WHERE email=:email", {'email': login_form.email.data}).fetchone()
+    if hashed_pw is None:
+        flash ("Invalid password. Please try again", "danger")
+        return redirect(url_for('login'))
     pw_checked=bcrypt.check_password_hash(f'{hashed_pw[0]}', login_form.password.data)
     if pw_checked is False:
         flash ("Invalid password. Please try again", "danger")
@@ -182,10 +185,10 @@ def most_reviewed():
     for book in book_counts[0:6]:
         # Check if goodread average is already in db
         avg=db.execute("SELECT average_rating FROM Books WHERE isbn=:isbn", {'isbn':book['isbn']}).fetchone()
-        if avg is None :
+        if avg[0] is None :
             # ---- Update database with goodread average rating 
             db.execute("UPDATE Books SET average_rating=:average_rating WHERE isbn=:isbn", {'average_rating':book['average_rating'], 'isbn':book['isbn']})
-            db.commit()
+            db.commit()    
         # ---- Add 6 most reviewed isbns to the list
         isbn.append(book['isbn']) 
     # ---- Fetch the 6 most goodread reviewed books from our database  

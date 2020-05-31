@@ -27,7 +27,7 @@
                 <ul class="m-0 p-0">
                     {% for auth in author %}
                     <li class="font-italic text-muted d-inline">
-                        <a href="{{url_for('book', book_title=auth.title, book_id=auth.id)}}"
+                        <a href="{{url_for('book', book_title=auth.title, book_id=auth.id, book_isbn=auth.isbn)}}"
                             class="info text-muted font-italic">
                             {{auth.title}} </a>
                     </li>
@@ -65,14 +65,14 @@
                     <div class="form-group">
                         {{ review.rating.label(class="form-control-label ml-0") }}
                         {% if review.rating.errors %}
-                        {{ review.rating(class="form-control form-control-sm ml-0 text-center is-invalid")}}
+                        {{ review.rating(class="btn-sm ml-0 text-center is-invalid")}}
                         <div class="invalid-feedback">
                             {% for error in review.rating.errors %}
                             <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                         {% else %}
-                        {{ review.rating(class="form-control form-control-sm ml-0 text-center")}}
+                        {{ review.rating(class="btn-sm ml-0 text-center")}}
                         {% endif %}
                     </div>
                     <div class="form-group" autocapitalize="on">

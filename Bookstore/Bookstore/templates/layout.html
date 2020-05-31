@@ -28,7 +28,8 @@
     <!-- LOADER GIF -->
     <div id="loading" class="position-fixed" style="top:0px">
         <div class="bg-light loader position-relative text-center">
-            <img src="{{ url_for('static', filename='image_library/gif-book.gif') }}" alt="loader" class="rounded-circle p-3">
+            <img src="{{ url_for('static', filename='image_library/gif-book.gif') }}" alt="loader"
+                class="rounded-circle p-3">
         </div>
     </div>
     <!-- BACKGROUND MASK -->
@@ -81,6 +82,8 @@
                             </a>
                             <a class="nav-item nav-link dropdown-item {{ 'active' if active_page == 'profile_review' else '' }}"
                                 href="{{ url_for('user_reviews', username=user.username) }}">My reviews</a>
+                            <a class="nav-item nav-link dropdown-item {{ 'active' if active_page == 'api' else '' }}"
+                                href="{{ url_for('api') }}">API</a>
                             <a id="logout" class="nav-item nav-link dropdown-item" href="{{ url_for('logout') }}">Log
                                 out</a>
                         </div>

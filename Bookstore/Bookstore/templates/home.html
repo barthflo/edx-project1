@@ -45,7 +45,7 @@
                                 <p class="card-text text-muted font-italic mb-1">Average Rating:
                                     {{book.average_rating[0:3]}}/5</p>
                                 <p class="card-text text-muted font-italic mb-3">{{book.year}}</p>
-                                <a href="{{ url_for('book', book_id=book.id, book_title=book.title, book_isbn=book.isbn, year=book.year)}}" class="btn btn-dark btn-small p-1">Learn More</a>
+                                <a href="{{ url_for('book', book_id=book.id, book_title=book.title, book_isbn=book.isbn)}}" class="btn btn-dark btn-small p-1">Learn More</a>
                             </div>
                         </div>
                     </div>
