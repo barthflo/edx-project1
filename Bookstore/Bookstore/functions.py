@@ -259,17 +259,6 @@ def current_time():
     nowstr=now.strftime("%a %B %d ,%Y, %X")
     return nowstr
 
-'''def best_ranked():
-    isbn=db.execute("SELECT isbn FROM Books").fetchall()
-    res=requests.get("https://www.goodreads.com/book/review_counts.json", params={"Key":app.config['GOODREAD_API_KEY'], "isbns[]": isbn[0:351]}).json()
-    book_counts=res['books']
-    book_counts.sort(key=lambda k: k['average_rating'], reverse=True)
-    isbn=[]
-    for book in book_counts:
-        isbn.append(book['isbn'])
-    t=tuple(isbn[0:6])
-    best_ranked=db.execute(f"SELECT * FROM Books WHERE isbn IN {t}").fetchall()
-    return best_ranked
-'''
+
 
     
