@@ -2,14 +2,6 @@
 ul, li {
   list-style-type: none; }
 
-/*
-body {
-    background-image: url(/static/image_library/image_background.jpg);
-    background-repeat: no-repeat;
-    background-attachment:fixed;
-    background-size:cover;
-}
-*/
 .view {
   position: fixed;
   top: 0;
