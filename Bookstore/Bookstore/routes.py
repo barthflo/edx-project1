@@ -42,8 +42,6 @@ def search():
         if 'user' in session:
             return render_template('search.html', title="Search", user=session['user'], searchform=searchform, books=session['results'])
         return render_template('search.html', title="Search", searchform=searchform, books=session['results'])
-    # Clear the result session when search page is accessed throught GET
-    #session.pop('results', None)
     if 'user' in session:
         return render_template('search.html', title="Search", searchform=searchform, user=session['user'])
     return render_template('search.html', title="Search", searchform=searchform)
