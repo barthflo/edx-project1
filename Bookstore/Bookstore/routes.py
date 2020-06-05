@@ -96,6 +96,7 @@ def book(book_title, book_id):
     search = SearchForm()
     review = SubmitReviewForm()
     login = LoginForm()
+    requestForm = RequestResetForm()
     book = db.execute("SELECT * FROM Books WHERE id=:id",
                       {'id': book_id}).fetchone()
     description = book_description(book.title, book.author)
@@ -122,7 +123,9 @@ def book(book_title, book_id):
     if request.method == "POST" and login.validate():
         log_user(login)
         return redirect(url_for('book', book_title=book.title, book_id=book.id))
-    return render_template('book.html', title=book_title, form=login, searchform=search, book=book, author=author, description=description, recents=recents)
+    if request.method == "POST" and requestForm.validate():
+        return reset_pwd_request(requestForm)
+    return render_template('book.html', title=book_title, form=login, searchform=search, book=book, author=author, description=description, recents=recents, requestform=requestForm )
 
 # ---------------------- Register a new User--------------------
 @app.route("/register", methods=["GET", "POST"])
